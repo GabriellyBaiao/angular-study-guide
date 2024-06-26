@@ -25,6 +25,8 @@ export class DataBidingComponent implements OnInit {
   isMouseOver: boolean = false;
   nome: string | undefined;
 
+  nomeDoCurso: string = 'Angular'
+
   getValor(){
     return 1;
   }
