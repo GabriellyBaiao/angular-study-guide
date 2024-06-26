@@ -1,4 +1,4 @@
-<section>
+<!-- <section> -->
   <!-- <article>
     <h3>Interpolation / Interpolação</h3>
     <p>String renderizada com interpolação: {{ url }}</p>
@@ -14,7 +14,7 @@
     <img bind-src="urlImagem">
   </article> -->
 
-  <article>
+  <!-- <article>
     <h3>Class e StyleBiding</h3>
     <div>
       Selecione uma classe:
@@ -51,9 +51,38 @@
       [style.display]="classe.value == 'alert-danger' ? 'block': 'none'">
       Esse texto só aparece em caso de erro.
     </div>
+  </article> -->
+<!-- </section> -->
 
+<section class="event-biding">
+  <article>
+    <h3>Event Biding</h3>
+    <button (click)="botaoClicado()"
+    class="btn btn-primary">
+      Me clique!
+    </button>
+
+    <br><br>
+
+    <input type="text"
+    (keyup)="onKeyUp($event)"
+    (keyup.enter)="salvarValor(campoInput.value)"
+    (blur)="salvarValor(campoInput.value)"
+    #campoInput/>
+
+    <p>Valor Atual: {{ valorAtual }}</p>
+    <p>Valor salvo: {{ valorSalvo }}</p>
+
+    <br>
+    <span
+    (mouseover)="onMouseOverOut()"
+    (mouseout)="onMouseOverOut()"
+    [class.highlight]="isMouseOver"
+    >
+    Passe o mouse sobre mim</span>
 
   </article>
+
 </section>
 
 
