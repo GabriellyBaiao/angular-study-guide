@@ -23,6 +23,7 @@ export class DataBidingComponent implements OnInit {
   valorSalvo = '';
 
   isMouseOver: boolean = false;
+  nome: string | undefined;
 
   getValor(){
     return 1;
@@ -46,6 +47,13 @@ export class DataBidingComponent implements OnInit {
 
   onMouseOverOut(){
     this.isMouseOver = !this.isMouseOver;
+  }
+
+  atualizarNome(event: Event): void {
+    const inputElement = event.target as HTMLInputElement | null;
+    if (inputElement && inputElement.value) {
+      this.nome = inputElement.value;
+    }
   }
 
   constructor() { }
