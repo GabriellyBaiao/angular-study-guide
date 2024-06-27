@@ -27,6 +27,8 @@ export class DataBidingComponent implements OnInit {
 
   nomeDoCurso: string = 'Angular'
 
+  valorInicial = 15;
+
   getValor(){
     return 1;
   }
@@ -56,6 +58,10 @@ export class DataBidingComponent implements OnInit {
     if (inputElement && inputElement.value) {
       this.nome = inputElement.value;
     }
+  }
+
+  onMudouValor(evento: any){
+    console.log(evento.novoValor);
   }
 
   constructor() { }
