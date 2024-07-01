@@ -1,4 +1,4 @@
-<p fundoAmarelo >
+<!-- <p fundoAmarelo >
   Texto com fundo amarelo.
 </p>
 
@@ -10,4 +10,24 @@
 
 <p [highlight]="'red'" [defaultColor]="'grey'">
   Texto com highlight com cores customizadas.
-</p>
+</p> -->
+
+<h5>Diretiva Estrutura customizada - ngElse</h5>
+
+<div *ngIf="mostrarCursos">
+  Lista de cursos aqui.
+</div>
+<div *ngElse="mostrarCursos">
+  Não existem cursos para serem listados.
+</div>
+
+<br>
+<button (click)="onMostrarCursos()">
+  Mostrar ou esconder cursos
+</button>
+
+<ng-template [ngElse]="mostrarCursos">
+  <div>
+    Não existem cursos para serem listados.
+  </div>
+</ng-template>
