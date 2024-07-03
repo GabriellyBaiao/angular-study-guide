@@ -19,7 +19,9 @@ export class CursosService{
   }
 
   addCurso(curso: string){
-    this.logService.consoleLog(`Criando um novo curso ${curso}`);
+    this.logService.consoleLog(`Criando um novo curso ${curso}`)
+
+    ;
     this.cursos.push(curso);
     this.emitirCursoCriado.emit(curso);
     CursosService.criouNovoCurso.emit(curso);
