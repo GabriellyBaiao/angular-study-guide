@@ -16,7 +16,6 @@ import { CursosComponent } from './cursos/cursos.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     AppRoutingModule
   ],
   providers: [],
