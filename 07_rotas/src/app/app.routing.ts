@@ -1,20 +1,22 @@
-import { RouterModule, Routes } from "@angular/router";
-import { HomeComponent } from "./home/home.component";
-import { LoginComponent } from "./login/login.component";
-import { CursosComponent } from "./cursos/cursos.component";
-import { ModuleWithProviders, NgModule } from "@angular/core";
-import { CursoDetalheComponent } from "./curso-detalhe/curso-detalhe.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { CursosComponent } from './cursos/cursos.component';
+import { CursoDetalheComponent } from './curso-detalhe/curso-detalhe.component';
+import { CursoNaoEncontradoComponent } from './curso-nao-encontrado/curso-nao-encontrado.component';
 
-const APP_ROUTES: Routes = [
-  { path: 'cursos', component: CursosComponent },
-  { path: 'cursos/:id', component: CursoDetalheComponent },
+
+const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: '', component: HomeComponent }
+  { path: '', component: HomeComponent },
+  { path: 'cursos', component: CursosComponent },
+  { path: 'curso/:id', component: CursoDetalheComponent },
+  { path: 'naoEncontrado', component: CursoNaoEncontradoComponent}
 ];
 
-// exports const routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);
 @NgModule({
-  imports: [RouterModule.forRoot(APP_ROUTES, {useHash: true})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

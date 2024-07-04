@@ -1,27 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
+
+import { CursosService } from '../cursos/cursos.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-curso-detalhe',
   templateUrl: './curso-detalhe.component.html',
-  styleUrl: './curso-detalhe.component.css'
+  styleUrls: ['./curso-detalhe.component.css']
 })
 export class CursoDetalheComponent implements OnInit {
 
-  id!: string;
+  id!: number;
   inscricao!: Subscription;
+  curso: any;
 
-  constructor(private route: ActivatedRoute){
-    // console.log(this.route);
-    // this.id = this.route.snapshot.params['id']
-    // console.log(this.route);
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private cursosService: CursosService
+  ) {
+    //this.id = this.route.snapshot.params['id'];
+    //console.log(this.route);
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.inscricao = this.route.params.subscribe(
       (params: any) => {
         this.id = params['id'];
+
+        this.curso = this.cursosService.getCurso(this.id);
+
+        if(this.curso == null){
+          this.router.navigate(['/naoEncontrado']);
+        }
       }
     );
   }
