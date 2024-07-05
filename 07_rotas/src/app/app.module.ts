@@ -13,12 +13,14 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { CursosModule } from './cursos/cursos.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AlunosModule } from './alunos/aluno-form/alunos.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    // AlunosComponent
    /* CursosComponent,
     CursoDetalheComponent,
     CursoNaoEncontradoComponent*/
@@ -28,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule,
     CursosModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AlunosModule
   ],
   // providers: [CursosService],
   bootstrap: [AppComponent]
