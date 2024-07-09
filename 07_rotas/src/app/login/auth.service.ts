@@ -30,4 +30,8 @@ export class AuthService {
       this.mostrarMenuEmitter.emit(false);
     }
   }
+
+  usuarioEstaAtenticado(){
+    return this.usuarioAtenticado;
+  }
 }

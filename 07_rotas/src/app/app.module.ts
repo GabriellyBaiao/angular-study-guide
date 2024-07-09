@@ -14,6 +14,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './login/auth.service';
+import { AuthGuard } from './guards/auth.guard';
 // import { AlunosModule } from './alunos/alunos.module';
 
 // import { CursosModule } from './cursos/cursos.module';
@@ -38,7 +39,7 @@ import { AuthService } from './login/auth.service';
     AppRoutingModule,
     // AlunosModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
