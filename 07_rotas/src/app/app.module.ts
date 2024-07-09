@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './login/auth.service';
 // import { AlunosModule } from './alunos/alunos.module';
 
 // import { CursosModule } from './cursos/cursos.module';
@@ -37,7 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     // AlunosModule
   ],
-  // providers: [CursosService],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
