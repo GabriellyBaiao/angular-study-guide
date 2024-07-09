@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MeuPrimeiroComponent } from './meu-primeiro/meu-primeiro.component';
 import { MeuPrimeiro2Component } from './meu-primeiro2/meu-primeiro2.component';
-import { CursosModule } from './cursos/cursos.module';
+// import { CursosModule } from './cursos/cursos.module';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     FormsModule,
-    CursosModule
+    // CursosModule
   ],
   providers: [],
   bootstrap: [AppComponent]
