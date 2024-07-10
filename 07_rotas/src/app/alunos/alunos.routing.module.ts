@@ -1,3 +1,4 @@
+import { CanDeactivateFn } from '@angular/router';
 import { CanActivateChild } from '@angular/router';
 import { RouterModule, Routes } from '@angular/router';
 import { AlunosComponent } from './alunos.component';
@@ -6,6 +7,7 @@ import { AlunosModule } from './alunos.module';
 import { AlunoDetalheComponent } from './aluno-detalhe/aluno-detalhe.component';
 import { AlunoFormComponent } from './aluno-form/aluno-form.component';
 import { AlunosGuard } from '../guards/alunos.guard';
+import { AlunosDeactivateGuard } from '../guards/alunos-deactivate.guard';
 
 const alunosRoutes = [
   { path: '', component: AlunosComponent,
@@ -13,7 +15,9 @@ const alunosRoutes = [
     children: [
        { path: 'novo', component:  AlunoFormComponent },
        { path: ':id', component:  AlunoDetalheComponent },
-       { path: ':id/editar', component:  AlunoFormComponent }
+       { path: ':id/editar', component:  AlunoFormComponent
+            CanDeactivate: [AlunosDeactivateGuard]
+        },
   ] },
 ];
 
