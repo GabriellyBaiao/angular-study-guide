@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanLoad } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 //import { CursosComponent } from './cursos/cursos.component';
@@ -24,6 +24,7 @@ const appRoutes: Routes = [
     loadChildren: () => import('./alunos/alunos.module').then(m => m.AlunosModule),
     canActivate: [AuthGuard],
     // canActivateChild: [AlunosGuard]
+    canLoad: [AuthGuard]
   },
   { path: 'login', component: LoginComponent },
   { path: '', component: HomeComponent,
