@@ -10,8 +10,8 @@ export class TemplateFormComponent implements OnInit{
 [x: string]: any;
 
   usuario: any = {
-    nome: 'Gabrielly',
-    email: 'gabibaiao@gmail.com'
+    nome: null,
+    email: null
   }
   onSubmit(form: any){
     console.log(form.value);
