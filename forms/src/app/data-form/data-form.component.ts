@@ -1,27 +1,37 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-data-form',
   templateUrl: './data-form.component.html',
-  styleUrl: './data-form.component.css'
+  styleUrls: ['./data-form.component.css']
 })
 export class DataFormComponent implements OnInit {
 
   formulario!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder){}
+  constructor(
+    private http: HttpClient,
+    private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    // this.formulario = new FormGroup({
-    //   nome: new FormControl(null), //cada campo é um controle de formulário
-    //   email: new FormControl(null)
-    // });
-
     this.formulario = this.formBuilder.group({
       nome: [null],
       email: [null]
     });
   }
 
+  onSubmit() {
+    console.log(this.formulario.value);
+
+    this.http.post('https://httpbin.org/post', this.formulario.value)
+      .pipe(
+        map((dados: any) => dados) // Assuming you want to transform the response data
+      )
+      .subscribe((dados: any) => {
+        console.log(dados);
+      });
+  }
 }
