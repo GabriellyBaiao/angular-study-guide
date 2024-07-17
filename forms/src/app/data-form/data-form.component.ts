@@ -9,6 +9,9 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./data-form.component.css']
 })
 export class DataFormComponent implements OnInit {
+verificaRequired(arg0: string): boolean {
+throw new Error('Method not implemented.');
+}
 
   formulario!: FormGroup;
 
@@ -19,7 +22,14 @@ export class DataFormComponent implements OnInit {
   ngOnInit() {
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email]]
+      email: [null, [Validators.required, Validators.email]],
+      cep: [null, Validators.required],
+      numero:[null, Validators.required],
+      complemento: [null],
+      rua: [null, Validators.required],
+      bairro: [null, Validators.required],
+      cidade: [null, Validators.required],
+      estado:[null, Validators.required]
     });
 
     //Validators.minLength(3), Validators.maxLength(20)]
@@ -53,14 +63,14 @@ export class DataFormComponent implements OnInit {
     return !this.formulario.get(campo)?.valid && this.formulario.get(campo)?.touched;
   }
 
-  verificaEmailInvalido(){
+  verificaEmailInvalido(campo: string){
     let campoEmail = this.formulario.get('email');
-    if(campoEmail.errors){
+    if (campoEmail && campoEmail.errors) {
       return campoEmail?.errors['email'] && campoEmail.touched;
     }
   }
 
-  aplicaCssErro(campo: any) {
+  aplicaCssErro(campo: string) {
     return {
       'has-error': this.verificaValidTouched(campo),
       'has-feedback': this.verificaValidTouched(campo)
