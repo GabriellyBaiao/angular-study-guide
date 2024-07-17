@@ -1,7 +1,9 @@
+import { DropdownService } from './../shared/services/dropdown.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { EstadoBr } from '../shared/models/estado-br.model';
 
 @Component({
   selector: 'app-data-form',
@@ -9,17 +11,22 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./data-form.component.css']
 })
 export class DataFormComponent implements OnInit {
-verificaRequired(arg0: string): boolean {
-throw new Error('Method not implemented.');
+
+  formulario: FormGroup;
+  estados: EstadoBr[];
 }
 
   formulario!: FormGroup;
 
   constructor(
     private http: HttpClient,
-    private formBuilder: FormBuilder) {}
+    private formBuilder: FormBuilder,
+    private dropdownService: DropdownService) {}
 
   ngOnInit() {
+
+    this.dropdownService.getEstadosBr()
+      .subscribe(dados => {this.estados = dados; console.log(dados);});
 
     /*this.formulario = new FormGroup({
       nome: new FormControl(null),
