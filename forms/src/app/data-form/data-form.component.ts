@@ -1,7 +1,7 @@
 import { DropdownService } from './../shared/services/dropdown.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { EstadoBr } from '../shared/models/estado-br.model';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
@@ -20,6 +20,8 @@ export class DataFormComponent implements OnInit {
   cargos!: any[];
   tecnologias!: any[];
   newsletterOp!: any[];
+
+  frameworks = ['Angular', 'React', 'Vue', 'Sencha'];
 }
   constructor(
     private http: HttpClient,
@@ -61,18 +63,40 @@ export class DataFormComponent implements OnInit {
       cargo: [null],
       tecnologias: [null],
       newsletter: ['s'],
-      termos: [null, Validators.pattern('true')]
+      termos: [null, Validators.pattern('true')],
+      frameworks: this.buildFrameworks();
     });
 
     //Validators.minLength(3), Validators.maxLength(20)]
   }
 
+  buildFrameworks(){
+
+    const values = this.frameworks.map(v => new FormControl(false));
+    return this.formBuilder.array(values);
+
+    // this.formBuilder.array( [
+    //   new FormControl(false),
+    //   new FormControl(false),
+    //   new FormControl(false),
+    //   new FormControl(false)
+    // ]);
+  }
+
   onSubmit() {
     console.log(this.formulario.value);
 
+    let valueSubmit = Object.assign({}, this.formulario.value);
+
+    valueSubmit = Object.assign(valueSubmit, {
+      frameworks: valueSubmit.frameworks
+        .map((v, i) => v ? this.framewoks[i] ? null )
+        .filter(v => v !== null)
+    })
+
     if(this.formulario.valid){
       this.http
-      .post('https://httpbin.org/post', this.formulario.value)
+      .post('https://httpbin.org/post', JSON.stringify(valueSubmit)
       .pipe(
         map((dados: any) => dados) // Supondo que você queira transformar os dados da resposta
       )
@@ -171,4 +195,5 @@ export class DataFormComponent implements OnInit {
     setarTecnologias(){
       this.formulario.get('tecnologias').setValue(['java', 'javascript', 'php']);
     }
+
   }
