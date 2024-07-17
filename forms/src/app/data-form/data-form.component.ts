@@ -19,13 +19,14 @@ export class DataFormComponent implements OnInit {
   estados!:Observable<EstadoBr[]>;
   cargos!: any[];
   tecnologias!: any[];
+  newsletterOp!: any[];
 }
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private dropdownService: DropdownService,
     private cepService: ConsultaCepService
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -33,6 +34,7 @@ export class DataFormComponent implements OnInit {
 
     this.cargos = this.dropdownService.getCargos();
     this.tecnologias = this.dropdownService.getTecnoloigas();
+    this.newsletterOp = this.dropdownService.getNewsletter();
 
     /*this.formulario = new FormGroup({
       nome: new FormControl(null),
@@ -57,7 +59,8 @@ export class DataFormComponent implements OnInit {
       }),
 
       cargo: [null],
-      tecnologias: [null]
+      tecnologias: [null],
+      newsletter: ['s']
     });
 
     //Validators.minLength(3), Validators.maxLength(20)]
