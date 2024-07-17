@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { EstadoBr } from '../shared/models/estado-br.model';
+import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 
 @Component({
   selector: 'app-data-form',
@@ -21,7 +22,9 @@ export class DataFormComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
-    private dropdownService: DropdownService) {}
+    private dropdownService: DropdownService,
+    private cepService: ConsultaCepService
+  ) {}
 
   ngOnInit() {
 
@@ -112,6 +115,15 @@ export class DataFormComponent implements OnInit {
       'has-feedback': this.verificaValidTouched(campo)
     };
   }
+
+  consultaCEP() {
+    const cep = this.formulario.get('endereco.cep').value;
+
+    if (cep != null && cep !== '') {
+      this.cepService.consultaCEP(cep)
+      .subscribe(dados => this.populaDadosForm(dados));
+    }
+  }
   populaDadosForm(dados: any){
     this.formulario.patchValue({
       endereco:{
@@ -136,22 +148,3 @@ export class DataFormComponent implements OnInit {
       }
     });
   }
-  consultaCEP() {
-
-    let cep = this.formulario.get('endereco.cep')?.value;
-
-    cep = cep.replace(/\D/g, '');
-
-    if (cep != "") {
-
-      var validaCep = /^[0-9]{8}$/;
-
-      if(validaCep.test(cep)){
-        this.resetaDadosForm();
-
-        this.http.get(`https://viacep.com.br/ws/${cep}/json`)
-        .subscribe(dados => this.populaDadosForm(dados));
-      }
-    }
-  }
-}
