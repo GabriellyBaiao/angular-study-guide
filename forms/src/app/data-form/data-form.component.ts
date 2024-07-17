@@ -49,7 +49,9 @@ throw new Error('Method not implemented.');
   onSubmit() {
     console.log(this.formulario.value);
 
-    this.http.post('https://httpbin.org/post', this.formulario.value)
+    if(this.formulario.valid){
+      this.http
+      .post('https://httpbin.org/post', this.formulario.value)
       .pipe(
         map((dados: any) => dados) // Supondo que você queira transformar os dados da resposta
       )
@@ -63,6 +65,22 @@ throw new Error('Method not implemented.');
           alert('erro');
         }
       });
+    } else {
+      console.log('formulario inválido');
+      this.verificaValidacoesForm(this.formulario);
+    }
+  }
+
+  verificaValidacoesForm(formGroup: FormGroup){
+    Object.keys(formGroup.controls).forEach(campo => {
+      console.log(campo);
+      const controle = formGroup.get(campo);
+      controle?.markAsDirty();
+
+      if(controle  instanceof FormGroup){
+        this.verificaValidacoesForm(controle);
+      }
+    });
   }
 
   resetar(){
@@ -71,7 +89,7 @@ throw new Error('Method not implemented.');
 
   verificaValidTouched(campo: any){
 
-    return !this.formulario.get(campo)?.valid && this.formulario.get(campo)?.touched;
+    return !this.formulario.get(campo)?.valid && (this.formulario.get(campo)?.touched || this.formulario.get(campo)?.dirty);
   }
 
   verificaEmailInvalido(campo: string){
