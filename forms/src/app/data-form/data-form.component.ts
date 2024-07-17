@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -18,9 +18,11 @@ export class DataFormComponent implements OnInit {
 
   ngOnInit() {
     this.formulario = this.formBuilder.group({
-      nome: [null],
-      email: [null]
+      nome: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]]
     });
+
+    //Validators.minLength(3), Validators.maxLength(20)]
   }
 
   onSubmit() {
@@ -28,10 +30,21 @@ export class DataFormComponent implements OnInit {
 
     this.http.post('https://httpbin.org/post', this.formulario.value)
       .pipe(
-        map((dados: any) => dados) // Assuming you want to transform the response data
+        map((dados: any) => dados) // Supondo que você queira transformar os dados da resposta
       )
-      .subscribe((dados: any) => {
-        console.log(dados);
+      .subscribe({
+        next: (dados: any) => {
+          console.log(dados);
+          // Reseta o formulário
+           this.formulario.reset();
+        },
+        error: (error: any) => {
+          alert('erro');
+        }
       });
+  }
+
+  resetar(){
+    this.formulario.reset();
   }
 }
