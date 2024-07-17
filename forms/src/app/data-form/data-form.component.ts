@@ -87,4 +87,46 @@ throw new Error('Method not implemented.');
       'has-feedback': this.verificaValidTouched(campo)
     };
   }
+  populaDadosForm(dados: any){
+    this.formulario.patchValue({
+      endereco:{
+        rua: dados.logradouro,
+        complemento: dados.complemento,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf
+      }
+    });
+    this.formulario.get('nome')?.setValue('Gabrielly');
+  }
+
+  resetaDadosForm(){
+    this.formulario.patchValue({
+      endereco:{
+        rua: null,
+        complemento: null,
+        bairro: null,
+        cidade: null,
+        estado: null
+      }
+    });
+  }
+  consultaCEP() {
+
+    let cep = this.formulario.get('endereco.cep')?.value;
+
+    cep = cep.replace(/\D/g, '');
+
+    if (cep != "") {
+
+      var validaCep = /^[0-9]{8}$/;
+
+      if(validaCep.test(cep)){
+        this.resetaDadosForm();
+
+        this.http.get(`https://viacep.com.br/ws/${cep}/json`)
+        .subscribe(dados => this.populaDadosForm(dados));
+      }
+    }
+  }
 }
