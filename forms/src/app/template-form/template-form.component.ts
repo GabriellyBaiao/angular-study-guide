@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
+import { FormGroup, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-template-form',
@@ -42,13 +43,14 @@ export class TemplateFormComponent implements OnInit {
     };
   }
 
-  consultaCEP(cep, form) {
-    // Nova variável "cep" somente com dígitos.
-    cep = cep.replace(/\D/g, '');
+  consultaCEP(event: FocusEvent, form: NgForm): void {
+    // Obtém o valor do input a partir do evento
+    const cepInput = event.target as HTMLInputElement;
+    const cep = cepInput.value.replace(/\D/g, '');
 
-    if (cep != null && cep !== '') {
+    if (cep && cep !== '') {
       this.cepService.consultaCEP(cep)
-      .subscribe(dados => this.populaDadosForm(dados, form));
+        .subscribe(dados => this.populaDadosForm(dados, form));
     }
   }
 

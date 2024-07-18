@@ -1,25 +1,29 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { map, tap, delay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+interface EmailData {
+  emails: { email: string }[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class VerificaEmailService {
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-verificarEmail(email: string) {
-  return  this.http.get('assets/dados/verificarEmail.json');
-    .pipe(
-      delay(2000),
-      map((dados: { emails: any[]} => dados.emails)
-      // tap(console.log),
-      map((dados: {email: string}[]) => dados.filter(v => v.email === email)),
-      // tap(console.log),
-      map((dados: any[]) => dados.length > 0)
-      // tap(console.log)
-    )
-}
-
+  verificarEmail(email: string): Observable<boolean> {
+    return this.http.get<EmailData>('assets/dados/verificarEmail.json')
+      .pipe(
+        delay(3000),
+        map((dados: EmailData) => dados.emails),
+        // tap(console.log),
+        map((emails: { email: string }[]) => emails.filter(v => v.email === email)),
+        // tap(console.log),
+        map((emails: { email: string }[]) => emails.length > 0 )
+        // tap(console.log)
+      );
+  }
 }
