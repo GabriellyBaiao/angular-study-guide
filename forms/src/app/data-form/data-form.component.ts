@@ -51,7 +51,7 @@ export class DataFormComponent implements OnInit {
       nome: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
       endereco: this.formBuilder.group({
-        cep: [null, Validators.required],
+        cep: [null, [Validators.required, FormValidations.cepValidator]],
         numero:[null, Validators.required],
         complemento: [null],
         rua: [null, Validators.required],
@@ -98,6 +98,16 @@ export class DataFormComponent implements OnInit {
       return totalChecked >= min ? null : { required: true };
     };
     return validator;
+  }
+
+  static cepValidator(control: FormControl) {
+
+    const cep = control.value;
+    if(cep && cep != '') {
+      const validacep = /^[0-9]{8}$/;
+      return validacep.test(cep) ? null : { cepInvalido : true };
+    }
+    return null;
   }
 
   onSubmit() {
@@ -152,6 +162,13 @@ export class DataFormComponent implements OnInit {
   verificaValidTouched(campo: any){
 
     return !this.formulario.get(campo)?.valid && (this.formulario.get(campo)?.touched || this.formulario.get(campo)?.dirty);
+  }
+
+  verificaRequired(campo: string){
+    return (
+      this.formulario.get(campo).hasError('required') &&
+      (this.formulario.get(campo).touched || this.formulario.get(campo).dirty)
+    );
   }
 
   verificaEmailInvalido(campo: string){
@@ -212,69 +229,5 @@ export class DataFormComponent implements OnInit {
     setarTecnologias(){
       this.formulario.get('tecnologias').setValue(['java', 'javascript', 'php']);
     }
-
   }
-function constructor(private: any, http: any, HttpClient: typeof HttpClient, private1: any, formBuilder: any, FormBuilder: typeof FormBuilder, private2: any, dropdownService: any, DropdownService: typeof DropdownService, private3: any, cepService: any, ConsultaCepService: typeof ConsultaCepService) {
-  throw new Error('Function not implemented.');
-}
-
-function ngOnInit() {
-  throw new Error('Function not implemented.');
-}
-
-function buildFrameworks() {
-  throw new Error('Function not implemented.');
-}
-
-function requiredMinCheckbox(arg0: number) {
-  throw new Error('Function not implemented.');
-}
-
-function onSubmit() {
-  throw new Error('Function not implemented.');
-}
-
-function verificaValidacoesForm(formGroup: any, FormGroup: typeof FormGroup) {
-  throw new Error('Function not implemented.');
-}
-
-function resetar() {
-  throw new Error('Function not implemented.');
-}
-
-function verificaValidTouched(campo: any, any: any) {
-  throw new Error('Function not implemented.');
-}
-
-function verificaEmailInvalido(campo: any, string: any) {
-  throw new Error('Function not implemented.');
-}
-
-function aplicaCssErro(campo: any, string: any) {
-  throw new Error('Function not implemented.');
-}
-
-function consultaCEP() {
-  throw new Error('Function not implemented.');
-}
-
-function populaDadosForm(dados: any, any: any) {
-  throw new Error('Function not implemented.');
-}
-
-function resetaDadosForm() {
-  throw new Error('Function not implemented.');
-}
-
-function setarCargo() {
-  throw new Error('Function not implemented.');
-}
-
-function compararCargos(obj1: any, obj2: any) {
-  throw new Error('Function not implemented.');
-}
-
-function setarTecnologias() {
-  throw new Error('Function not implemented.');
-}
 
