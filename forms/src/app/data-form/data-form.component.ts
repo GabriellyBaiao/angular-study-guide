@@ -1,8 +1,8 @@
 import { DropdownService } from './../shared/services/dropdown.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { map } from 'rxjs/operators';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { map, min } from 'rxjs/operators';
 import { EstadoBr } from '../shared/models/estado-br.model';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { Observable } from 'rxjs';
@@ -73,7 +73,7 @@ export class DataFormComponent implements OnInit {
   buildFrameworks(){
 
     const values = this.frameworks.map(v => new FormControl(false));
-    return this.formBuilder.array(values);
+    return this.formBuilder.array(values, FormValidations.requiredMinCheckbox(1));
 
     // this.formBuilder.array( [
     //   new FormControl(false),
@@ -81,6 +81,23 @@ export class DataFormComponent implements OnInit {
     //   new FormControl(false),
     //   new FormControl(false)
     // ]);
+  }
+
+  requiredMinCheckbox(min = 1){
+    // const validator = (formArray: FormArray) => {
+    // const values = formArray.controls;
+    // let totalChecked = 0;
+    // for(let i=0; i< values.length; i++){
+    //   if(values[i].value){
+    //     totalChecked += 1;
+    //   }
+    // }
+    const totalChecked = formArray.controls
+      .map(v => v.value)
+      .reduce((total, current) => current ? total + current : total, 0);
+      return totalChecked >= min ? null : { required: true };
+    };
+    return validator;
   }
 
   onSubmit() {
@@ -197,3 +214,67 @@ export class DataFormComponent implements OnInit {
     }
 
   }
+function constructor(private: any, http: any, HttpClient: typeof HttpClient, private1: any, formBuilder: any, FormBuilder: typeof FormBuilder, private2: any, dropdownService: any, DropdownService: typeof DropdownService, private3: any, cepService: any, ConsultaCepService: typeof ConsultaCepService) {
+  throw new Error('Function not implemented.');
+}
+
+function ngOnInit() {
+  throw new Error('Function not implemented.');
+}
+
+function buildFrameworks() {
+  throw new Error('Function not implemented.');
+}
+
+function requiredMinCheckbox(arg0: number) {
+  throw new Error('Function not implemented.');
+}
+
+function onSubmit() {
+  throw new Error('Function not implemented.');
+}
+
+function verificaValidacoesForm(formGroup: any, FormGroup: typeof FormGroup) {
+  throw new Error('Function not implemented.');
+}
+
+function resetar() {
+  throw new Error('Function not implemented.');
+}
+
+function verificaValidTouched(campo: any, any: any) {
+  throw new Error('Function not implemented.');
+}
+
+function verificaEmailInvalido(campo: any, string: any) {
+  throw new Error('Function not implemented.');
+}
+
+function aplicaCssErro(campo: any, string: any) {
+  throw new Error('Function not implemented.');
+}
+
+function consultaCEP() {
+  throw new Error('Function not implemented.');
+}
+
+function populaDadosForm(dados: any, any: any) {
+  throw new Error('Function not implemented.');
+}
+
+function resetaDadosForm() {
+  throw new Error('Function not implemented.');
+}
+
+function setarCargo() {
+  throw new Error('Function not implemented.');
+}
+
+function compararCargos(obj1: any, obj2: any) {
+  throw new Error('Function not implemented.');
+}
+
+function setarTecnologias() {
+  throw new Error('Function not implemented.');
+}
+
