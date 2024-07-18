@@ -7,6 +7,7 @@ import { map, min } from 'rxjs/operators';
 import { EstadoBr } from '../shared/models/estado-br.model';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { Observable } from 'rxjs';
+import { FormValidations } from '../shared/form-validations';
 
 @Component({
   selector: 'app-data-form',
@@ -52,7 +53,7 @@ export class DataFormComponent implements OnInit {
     });*/
 
     this.formulario = this.formBuilder.group({
-      nome: [null, [Validators.required]],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(5)]],
       email: [null, [Validators.required, Validators.email],[this.validarEmail.bind(this)]],
       confirmarEmail: [null, [FormValidations.equalsTo('email')]],
 
