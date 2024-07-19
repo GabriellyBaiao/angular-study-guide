@@ -4,11 +4,12 @@
       <h4>Cursos</h4>
       <div>
         <button type="button" class="btn btn-primary" [routerLink]="['novo']">Novo Curso</button>
+        <button type="button" class="btn btn-secondary" (click)="onRefresh()">Atualizar</button>
       </div>
     </div>
   </div>
   <div class="card-body">
-    <table class="table table-hover" *ngIf="cursos$ | async as cursos; else loading">
+    <table class="table table-hover" *ngIf="cursos$ | async as cursos; else loadingError">
       <thead>
         <tr>
           <th>#</th>
@@ -28,10 +29,14 @@
       </tbody>
     </table>
 
-    <ng-template #loading>
-      <span>Carregando Cursos...</span>
+    <ng-template #loadingError>
+      <div *ngIf="error$ | async; else loading"></div>
+      <span>Erro ao carregar cursos. Tente novamente mais tarde.</span>
     </ng-template>
   </div>
+  <ng-template #loading>
+    <span>Carregando Cursos ... </span>
+  </ng-template>
 </div>
 
 <ng-template #deleteModal>
