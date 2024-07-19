@@ -1,4 +1,4 @@
-import { tap } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Curso } from './cursos-lista/curso';
@@ -17,7 +17,8 @@ export class CursosService {
   list(): Observable<Curso[]>{
     return this.http.get<Curso[]>(this.API)
       .pipe(
-         tap(console.log)
+        delay(2000),
+        tap(console.log)
       )
       ;
   }
