@@ -1,22 +1,30 @@
+import { CursosListaComponent } from './../../../../08_resquests-http/src/app/cursos/cursos-lista/cursos-lista.component';
+import { CursoResolverGuard } from './../../../../08_resquests-http/src/app/cursos/guards/curso-resolver.guard';
+import { CursosFormComponent } from './../../../../08_resquests-http/src/app/cursos/cursos-form/cursos-form.component';
 import { NgModule } from '@angular/core';
-import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-//import { CursosComponent } from './cursos/cursos.component';
-import { CursosComponent } from './cursos.component';
-import { CursoDetalheComponent } from './curso-detalhe/curso-detalhe.component';
-import { CursoNaoEncontradoComponent } from './curso-nao-encontrado/curso-nao-encontrado.component';
-//import { CursoDetalheComponent } from './cursos/curso-detalhe/curso-detalhe.component';
-//import { CursoNaoEncontradoComponent } from './cursos/curso-nao-encontrado/curso-nao-encontrado.component';
 
-const cursosRoutes: Routes = [
-  { path: '', component: CursosComponent },
-  { path: 'naoEncontrado', component: CursoNaoEncontradoComponent},
-  { path: ':id', component: CursoDetalheComponent }
+const routes: Routes = [
+  { path: '', component: CursosListaComponent },
+  {
+    path: 'novo',
+    component: CursosFormComponent,
+    resolve: {
+      curso: CursoResolverGuard
+    }
+  },
+  {
+    path: 'editar/:id',
+    component: CursosFormComponent,
+    resolve: {
+      curso: CursoResolverGuard
+    }
+  }
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(cursosRoutes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class CursosRoutingModule {}
