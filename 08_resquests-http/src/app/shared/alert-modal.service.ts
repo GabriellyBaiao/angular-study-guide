@@ -10,6 +10,7 @@ export enum AlertTypes {
   providedIn: 'root'
 })
 export class AlertModalService {
+  [x: string]: any;
 
   constructor(private modalService: BsModalService) { }
 
@@ -30,4 +31,5 @@ export class AlertModalService {
   showAlertSucess(message: string){
     this.showAlert(message, AlertTypes.SUCCESS, 3000);
   }
+
 }
