@@ -10,6 +10,10 @@ const routes: Routes = [
     loadChildren: () => import('./cursos/cursos.module').then(m => m.CursosModule)
   },
   {
+    path: 'upload',
+    loadChildren: () => import('./upload-file/upload-file.module').then(m => m.UploadFileModule)
+  },
+  {
     path: 'rxjs-poc',
     loadChildren: () => import('./unsubscribe-rxjs/unsubscribe-rxjs.module').then(m => m.UnsubscribeRxjsModule)
   },
