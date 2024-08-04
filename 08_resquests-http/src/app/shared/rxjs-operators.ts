@@ -4,7 +4,7 @@ import { HttpEvent, HttpEventType, HttpResponse, HttpProgressEvent } from '@angu
 
 export function filterResponse<T>() {
   return pipe(
-    filter((event: HttpEvent<T>) => event.type === HttpEventType.Response),
+    filter((event: HttpEvent<T>): event is HttpResponse<T> => event.type === HttpEventType.Response),
     map((res: HttpResponse<T>) => res.body)
   );
 }
@@ -12,11 +12,11 @@ export function filterResponse<T>() {
 export function uploadProgress<T>(cb: (progress: number) => void) {
   return tap((event: HttpEvent<T>) => {
     if (event.type === HttpEventType.UploadProgress) {
-      // Verifique se event.total está definido antes de usá-lo
-      if (event.total) {
-        cb(Math.round((event.loaded * 100) / event.total));
+      const progressEvent = event as HttpProgressEvent;
+      if (progressEvent.total) {
+        cb(Math.round((progressEvent.loaded * 100) / progressEvent.total));
       } else {
-        cb(0); // Ou trate o caso onde total é undefined
+        cb(0);
       }
     }
   });
