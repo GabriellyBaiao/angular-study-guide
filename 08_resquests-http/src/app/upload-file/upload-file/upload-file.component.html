@@ -7,8 +7,16 @@
       (change)="onChange($event)"
       multiple
     />
-    <label class="custom-file-label" for="customFile" id="customFileLabel"
-      >Selecionar Arquivo</label>
+    <label class="custom-file-label" for="customFile" id="customFileLabel">Selecionar Arquivo</label>
+  </div>
+  <div class="progress" style="margin-top: 10px">
+    <div
+    class="progress-bar"
+    role="progressbar"
+    [style.width]="progress + '%'"
+    >
+    {{ progress }}%
+  </div>
   </div>
 </div>
 <div style="margin-top: 10px">
