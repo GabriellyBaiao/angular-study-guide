@@ -7,6 +7,7 @@ import { AlertModalService } from '../../shared/alert-modal.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EMPTY, Observable, Subject, empty } from 'rxjs';
 import { Curso } from './curso';
+import { Cursos2Service } from '../cursos2.service';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class CursosListaComponent implements OnInit {
   cursoSelecionado!: Curso;
 
   constructor(
-    private service: CursosService,
+    private service: Cursos2Service,
     private modalService: BsModalService,
     private alertService: AlertModalService,
     private router: Router,
